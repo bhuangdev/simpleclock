@@ -31,11 +31,15 @@ export default {
       var hour = myDate.getHours(); //获取系统时，
       var minute = myDate.getMinutes(); //分
       var second = myDate.getSeconds(); //秒
-      if(Number(second) < 10){
-        second = '0' + second;
-      }
+      
       this.date = month + '月' + day + '日';
-      this.time = hour + ':' + minute + ':' + second
+      this.time = this.addZero(hour) + ':' + this.addZero(minute) + ':' + this.addZero(second);
+    },
+    addZero(data){
+      if(Number(data) < 10){
+        data = '0' + data;
+      }
+      return data;
     }
   }
 }
