@@ -22,5 +22,6 @@ export default {
 }
 body{
   background-color: #000;
+  overflow:hidden;
 }
 </style>

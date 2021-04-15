@@ -1,7 +1,23 @@
 <template>
   <div class="hello">
-    <div class="date">{{ date }}</div>
-    <div class="time">{{ time }}</div>
+    <div class="date" id="date">{{ date }}</div>
+    <div class="time" id="time">{{ time }}</div>
+    <div classs="bottom">
+      <div class="item"><a target="_blank" :href="url_github"><img :src="img_url_github" style="height:25px;margin-bottom:11px;" alt></a></div>
+      <div class="item"><a target="_blank" :href="url_bili"><img :src="img_url_bili" style="height:35px;margin-bottom:10px;" alt></a></div>
+      <div class="item">
+        <el-switch
+          v-model="switchValue"
+          active-color="gray"
+          active-value="1"
+          inactive-value="2"
+          @change="changeColor()"
+          style="margin-bottom:35px;">
+        </el-switch>
+      </div>
+      <div class="item"><a target="_blank" :href="url_zhihu"><img :src="img_url_zhihu" alt></a></div>
+      <div class="item"><a target="_blank" :href="url_juejin"><img :src="img_url_juejin" style="height:38px;margin-bottom:6px;" alt></a></div>
+    </div>
   </div>
 </template>
 
@@ -11,7 +27,16 @@ export default {
   data () {
     return {
       date: '',
-      time: ''
+      time: '',
+      switchValue: '1',
+      url_zhihu: 'https://www.zhihu.com/people/huang-da-fa-29-93',
+      url_bili: 'https://space.bilibili.com/349834035',
+      url_github: 'https://github.com/bhuangdev',
+      url_juejin: 'https://juejin.cn/user/3483695904464199',
+      img_url_zhihu: require('@/assets/zhihu.svg'),
+      img_url_bili: require('@/assets/bili.svg'),
+      img_url_github: require('@/assets/github.svg'),
+      img_url_juejin: require('@/assets/juejin.svg')
     }
   },
   mounted(){
@@ -40,6 +65,20 @@ export default {
         data = '0' + data;
       }
       return data;
+    },
+    changeColor(){
+      debugger
+      if(this.switchValue == '2'){
+        document.getElementById("date").style.color = "#000";
+        document.getElementById("time").style.color = "#000";
+        document.body.style.backgroundColor = "rgb(255, 255, 255)";
+        this.img_url_github = require('@/assets/github2.svg')
+      }else{
+        document.getElementById("date").style.color = "rgb(255, 255, 255)";
+        document.getElementById("time").style.color = "rgb(255, 255, 255)";
+        document.body.style.backgroundColor = "#000";
+        this.img_url_github = require('@/assets/github.svg')
+      }
     }
   }
 }
@@ -49,12 +88,24 @@ export default {
 .hello{
   left:50px;
   right:50px;
-  margin-top:5%;
+  margin-top:2%;
 }
-.date{
-  font-size:200px;
+#date{
+  font-size:310px;
+  color:#fff;
+  font-weight: bold;
 }
-.time{
-  font-size:250px;
+#time{
+  font-size:440px;
+  color:#fff;
+  font-weight: bold;
+}
+.bottom{
+  text-align: center;
+}
+.item{
+  display: inline-block;
+  margin-left:40px;
+  margin-top:20px;
 }
 </style>
