@@ -1,5 +1,6 @@
 <template>
   <div class="hello">
+    <div><el-button id="fullornot" type="text" @click="hideAndShow()">■■■■</el-button></div>
     <div class="date" id="date">{{ date }}</div>
     <div class="time" id="time">{{ time }}</div>
     <div classs="bottom">
@@ -36,7 +37,8 @@ export default {
       img_url_zhihu: require('@/assets/zhihu.svg'),
       img_url_bili: require('@/assets/bili.svg'),
       img_url_github: require('@/assets/github.svg'),
-      img_url_juejin: require('@/assets/juejin.svg')
+      img_url_juejin: require('@/assets/juejin.svg'),
+      fullState: false
     }
   },
   mounted(){
@@ -67,18 +69,62 @@ export default {
       return data;
     },
     changeColor(){
-      debugger
       if(this.switchValue == '2'){
-        document.getElementById("date").style.color = "#000";
-        document.getElementById("time").style.color = "#000";
+        document.getElementById("fullornot").style.color = "rgb(255, 255, 255)";
+        document.getElementById("date").style.color = "rgb(0,0,0)";
+        document.getElementById("time").style.color = "rgb(0,0,0)";
         document.body.style.backgroundColor = "rgb(255, 255, 255)";
         this.img_url_github = require('@/assets/github2.svg')
       }else{
+        document.getElementById("fullornot").style.color = "#000";
         document.getElementById("date").style.color = "rgb(255, 255, 255)";
         document.getElementById("time").style.color = "rgb(255, 255, 255)";
-        document.body.style.backgroundColor = "#000";
+        document.body.style.backgroundColor = "rgb(0,0,0)";
         this.img_url_github = require('@/assets/github.svg')
       }
+    },
+    hideAndShow(){
+      if(this.fullState){
+        this.fullState = false;
+        this.cancelFullScreen();
+      }else {
+        this.fullState = true;
+        this.fullScreen();
+      }
+    },
+    fullScreen()  
+    {  
+      var docElm = document.documentElement;  
+      //W3C   
+      if (docElm.requestFullscreen) {  
+          docElm.requestFullscreen();  
+      }  
+          //FireFox   
+      else if (docElm.mozRequestFullScreen) {  
+          docElm.mozRequestFullScreen();  
+      }  
+          //Chrome等   
+      else if (docElm.webkitRequestFullScreen) {  
+          docElm.webkitRequestFullScreen();  
+      }  
+          //IE11   
+      else if (elem.msRequestFullscreen) {  
+          elem.msRequestFullscreen();  
+      }  
+    },
+    cancelFullScreen() {  
+      if (document.exitFullscreen) {  
+          document.exitFullscreen();  
+      }  
+      else if (document.mozCancelFullScreen) {  
+          document.mozCancelFullScreen();  
+      }  
+      else if (document.webkitCancelFullScreen) {  
+          document.webkitCancelFullScreen();  
+      }  
+      else if (document.msExitFullscreen) {  
+          document.msExitFullscreen();  
+      }  
     }
   }
 }
@@ -88,7 +134,7 @@ export default {
 .hello{
   left:50px;
   right:50px;
-  margin-top:2%;
+  margin-top:-1%;
 }
 #date{
   font-size:310px;
@@ -107,5 +153,9 @@ export default {
   display: inline-block;
   margin-left:40px;
   margin-top:20px;
+}
+#fullornot{
+  text-align:center;
+  color:rgb(0,0,0);
 }
 </style>
